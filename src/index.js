@@ -1,5 +1,23 @@
+var jimp = require('jimp2'),
+    fs = require('fs'),
+    editJsonFile = require('edit-json-file'),
+    edittaglist = editJsonFile('./src/discord/taglist.json'),
+    text2png = require('text2png'),
+    Discord = require("discord.js"),
+    client = new Discord.Client({ disableEveryone: true });
 
-// DISCORD
+var db = editJsonFile('./src/discord/db.json', {autosave: true}),
+    leaderB = editJsonFile('./src/discord/top.json', {autosave: true}),
+    prefix = ">",
+    lilpump = 'https://img.gta5-mods.com/q95/images/lil-pump-gucci-gang-loading-screen-music/1b5ba6-Lil-Pump.jpeg',
+    lista = ["Certamente Sim","Sim","Obviamente Não","Não tenho certeza","Não","🤔","Talvez","Com toda Certeza, SIM!!!","Verdade","Eu acho que não","Mentira","Fake News"],
+    channelsBloq = ["578019345092050955","601612921730105345","601612921730105345","545372125440245773","545372312883560449"],
+    cooldown = [];
+
+const events = {
+    MESSAGE_REACTION_ADD: 'messageReactionAdd',
+    MESSAGE_REACTION_REMOVE: 'messageReactionRemove',
+};
 
 client.on('ready', () => {
     console.log('ON');
